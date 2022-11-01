@@ -1,13 +1,18 @@
-Descriptin: 
+Description: 
+
 This application is a platform for people to find medical resources in different cities and communities. 
 The system admin can operate all CRUD operations in the application. The admin has to add the city details in which different communities can be created. Every Community has different hospitals and houses. First, the houses present in the community, the community can have the details of the houses situated and also the details of the persons living in the Houses.
 Community admin can able to modify and remove the data from the community. 
 On the other hand, community will have the list of hospitals and will be able to add doctors, and patients to the hospital. After assigning a particular patient to a doctor, the doctor can add the vital signs of that particular patient that leaves an encounter, and if multiple vital signs are taken all those details will be stored in the encounter history. 
 The person will be able to search for the hospitals located in their community either by city/community. If the person assigned to a hospital or doctor, they will be converted into the patient.
 System Admin:
-•	Can create City, Community, House, Doctor, Person, Hospital
-•	Will be able to perform CRUD operations on all the information in the application.
+
+Can create City, Community, House, Doctor, Person, Hospital
+Will be able to perform CRUD operations on all the information in the application.
+
+
 City:
+
 •	Can create the cities with communities.
 •	User can perform CRUD operations to city profile.
 Community Admin:
