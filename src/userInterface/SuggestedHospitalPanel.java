@@ -116,18 +116,19 @@ public class SuggestedHospitalPanel extends javax.swing.JPanel {
         
         for(Hospital doc: hospitalDirectory.getHospitalDirectory()){
           Object[] r =new Object[7];
-          if(community.equalsIgnoreCase(doc.getCommunity()) || community.equalsIgnoreCase(doc.getCity())){
-          r[0]= doc.getHospitalName();
-          r[1]=doc;
-          for(Doctor d: doctorDirectory.getDoctorDirectory()){
+           if((community.equalsIgnoreCase(doc.getCommunity()) || community.equalsIgnoreCase(doc.getCity()))){
+         for(Doctor d: doctorDirectory.getDoctorDirectory()){
               if(doc.getHospitalId().equalsIgnoreCase(d.getHosiptalId())){
-                   r[2]="D00"+d.getDoctorId();
-              }
-          }
+              r[0]=doc.getHospitalName();
+              r[1]="H00"+d.getHosiptalId();
+              r[2]="D00"+d.getDoctorId();
+              r[3]= doc.getCommunity();
+              r[4]=doc.getCity();
+              tbl.addRow(r);
+              }}
          
-          r[3]= doc.getCommunity();
-          r[4]=doc.getCity();
-          tbl.addRow(r);}
+        
+          }
     }
 
     }

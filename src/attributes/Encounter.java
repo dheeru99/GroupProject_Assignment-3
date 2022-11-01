@@ -11,7 +11,7 @@ import java.util.Date;
  * @author dheer
  */
 public class Encounter {
-    private int encounterId;
+    private String encounterId;
     private String doctorId;
     private String patientId;
     private Date visitingDate;
@@ -21,14 +21,15 @@ public class Encounter {
         this.encounterHistory = new EncounterHistory();
     }
 
-    public int getEncounterId() {
+    public String getEncounterId() {
         return encounterId;
     }
 
-    public void setEncounterId(int encounterId) {
+    public void setEncounterId(String encounterId) {
         this.encounterId = encounterId;
     }
-    
+
+   
     
     
     public String getDoctorId() {

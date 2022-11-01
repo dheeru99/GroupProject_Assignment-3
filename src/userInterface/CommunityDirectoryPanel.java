@@ -340,38 +340,24 @@ public class CommunityDirectoryPanel extends javax.swing.JPanel {
             if(city<=0){
                 JOptionPane.showMessageDialog(this, "City Id doesn't Matches with any City Id. Please Enter Valid CityId...!!");
             }else{
-//                String cityName="";
-//                for(City c: cityHistory.getCityHistory()){
-//                    if(selectedCity.getCityId().equalsIgnoreCase(c.getCityId())){
-//                        cityName= c.getCityName();
-//                    }
-//                }
-//                
-//                String ho="";
-//                for(House h: houseHistory.getHouseHistory()){
-//                    if(selectedCity.getCommunityId().equalsIgnoreCase(h.getCommunityId())){
-//                        ho=h.getHouseNumber();
-//                    }
-//                }
+
                 
                 String s=selectedCity.getCommunityName();
                 String co1=selectedCity.getCityId();
+                
+                
+                 String newCity= "";
+         for(City ci: cityHistory.getCityHistory()){
+              if(selectedCity.getCityId().equalsIgnoreCase(ci.getCityId())){
+                  newCity= ci.getCityName();
+              }
+         }
                 for(CommunityAdmin ca: communityAdminDirectory.getCommunityAdminDirectory()){
-             if(s.equalsIgnoreCase(ca.getCommunity())){
+             if(s.equalsIgnoreCase(ca.getCommunity()) && newCity.equalsIgnoreCase(ca.getCity())){
                  ca.setCommunity(name);
              }
                 }
-//         for(CommunityAdmin ca: communityAdminDirectory.getCommunityAdminDirectory()){
-//             if(s.equalsIgnoreCase(ca.getCommunity()) && ho.equalsIgnoreCase(ca.getHouseNumber())){
-//                 ca.setCommunity(name);
-//                  for(City ci: cityHistory.getCityHistory()){
-//                       if(co1.matches(ci.getCityId())){
-//                          ca.setCity(cityName);
-//                       }
-//                   }
-//             }
-//         }
-//         
+ 
          
                 
             selectedCity.setCommunityId(id);
@@ -405,10 +391,15 @@ public class CommunityDirectoryPanel extends javax.swing.JPanel {
             }
             
         }
-         
+          String newCity= "";
+         for(City ci: cityHistory.getCityHistory()){
+              if(selectedCommunity.getCityId().equalsIgnoreCase(ci.getCityId())){
+                  newCity= ci.getCityName();
+              }
+         }
         ArrayList<CommunityAdmin> h= new ArrayList<>();
         for(CommunityAdmin ca: communityAdminDirectory.getCommunityAdminDirectory()){
-            if(selectedCommunity.getCommunityName().equalsIgnoreCase(ca.getCommunity())){
+            if(selectedCommunity.getCommunityName().equalsIgnoreCase(ca.getCommunity()) && newCity.equalsIgnoreCase(ca.getCity())){
                h.add(ca);
             }
         }

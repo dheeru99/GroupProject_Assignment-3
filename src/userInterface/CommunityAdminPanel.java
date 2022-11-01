@@ -271,26 +271,43 @@ public class CommunityAdminPanel extends javax.swing.JPanel {
                 c.setCityName(city);
             }
         }
-        
+        String newCity= "";
+         for(City ci: cityHistory.getCityHistory()){
+              if(selectedCommunity.getCity().equalsIgnoreCase(ci.getCityName())){
+                  newCity= ci.getCityId();
+              }
+         }
          for(Community c: communityHistory.getCommunityHistory()){
-            if(selectedCommunity.getCommunity().equalsIgnoreCase(c.getCommunityName())){
+            if(selectedCommunity.getCommunity().equalsIgnoreCase(c.getCommunityName()) && newCity.equalsIgnoreCase(c.getCityId())){
+          
                 c.setCommunityName(community);
             }
         }
         String s=selectedCommunity.getCommunity();
+        String s1=selectedCommunity.getCity();
          for(CommunityAdmin ca: communityAdminDirectory.getCommunityAdminDirectory()){
-             if(s.equalsIgnoreCase(ca.getCommunity())){
+             if(s.equalsIgnoreCase(ca.getCommunity()) && s1.equalsIgnoreCase(ca.getCity())){
                  ca.setCommunity(community);
              }
          }
-         String s1=selectedCommunity.getCity();
+   
          for(CommunityAdmin ca: communityAdminDirectory.getCommunityAdminDirectory()){
              if(s1.equalsIgnoreCase(ca.getCity())){
                  ca.setCity(city);
              }
          }
         
-        
+       if(city.equals("")){
+            JOptionPane.showMessageDialog(this, "City Name is Mandatory..!!");
+        }else if (!city.matches("^[a-zA-z ]*$")){
+                JOptionPane.showMessageDialog(this, "Please Enter a Valid City Name");
+        }else if(community.equals("")){
+            JOptionPane.showMessageDialog(this, "Community Name is Mandatory..!!");
+        }else if (!community.matches("^[a-zA-z ]*$")){
+                JOptionPane.showMessageDialog(this, "Please Enter a Valid Community Name");
+        }else if(houseNumber.equals("")){
+            JOptionPane.showMessageDialog(this, "House Number is Mandatory..!!");
+        }else{
         selectedCommunity.setCity(city);
         selectedCommunity.setCommunity(community);
         selectedCommunity.setHouseNumber(houseNumber);
@@ -300,7 +317,7 @@ public class CommunityAdminPanel extends javax.swing.JPanel {
         txt2.setText("");
         txt3.setText("");
        table();
-
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -325,6 +342,8 @@ public class CommunityAdminPanel extends javax.swing.JPanel {
                 cityId= ci.getCityId();
             }
         }
+        
+        
         String communityId="";
         for(Community co: communityHistory.getCommunityHistory()){
             if(selectedCommunity.getCommunity().equalsIgnoreCase(co.getCommunityName())){

@@ -438,7 +438,7 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
         txt6.setText(selectedDoc.getPhoneNumber());
         txt10.setText(selectedDoc.getCity());
       
-        txt9.setText(selectedDoc.getHouseNumber());
+       
         // TODO add your handling code here:
     }//GEN-LAST:event_tableMouseClicked
 
@@ -499,7 +499,8 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
          }
           Person selectedPerson= (Person)tbl.getValueAt(selected, 1);
            String name=  txt1.getText();
-        String id= txt4.getText().replace("PE00","");
+        String id1= txt5.getText().replace("PE00","");
+        String id= txt5.getText().replace("P00","");
         String date =String.valueOf(txt3.getDate());
         String houseNumber= txt9.getText().replace("H0", "");
         String community= txt4.getText();
@@ -564,9 +565,9 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
             String phone3=phone4;
               phone3=phone3.replace("-","");
             phone3=phone3.replace("(","");
-            phone2=phone3.replace(")","");
-            phone2=phone3.replace(" ","");
-            phone2=phone3.replace("+91","");
+            phone3=phone3.replace(")","");
+            phone3=phone3.replace(" ","");
+            phone3=phone3.replace("+91","");
             phone3=phone3.replace("+1","");
                   if(phone1.matches(phone2) && !phone1.matches(phone3)){
                       phone++;
@@ -609,12 +610,16 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
                 }
             }
             int hospital=0;
-            for(Hospital doc: hospitalDirectory.getHospitalDirectory() ){
-                String doc1=doc.getCommunity();
-                String city1= doc.getCity();
+            for(Community doc: communityHistory.getCommunityHistory() ){
+                String doc1=doc.getCommunityName();
+                 String city1=doc.getCityId();
+                for(City ci: cityHistory.getCityHistory()){
+                    if(city1.equalsIgnoreCase(ci.getCityId())){
+                        city1= ci.getCityName();
+                    }
                 if((community.equalsIgnoreCase(doc1) &&  city.equalsIgnoreCase(city1))|| (community.isEmpty())){
                     hospital++;
-                }
+                }}
             }
             int city2=0;
             for(Hospital doc: hospitalDirectory.getHospitalDirectory() ){
@@ -632,11 +637,13 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
                     house++;
                 }
             }
-             String d= "";
+             int d= 0;
             for(Doctor doc: doctorDirectory.getDoctorDirectory() ){
+                if(doctorId.equalsIgnoreCase(doc.getDoctorId())){
                 String doc1=doc.getHosiptalId();
                 if(hospitalId.matches(doc1)){
-                    d= doc.getDoctorId();
+                    d++;
+                }
                 }
             }
             char ph = phoneNumber.charAt(0);
@@ -648,9 +655,11 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
             }else if(year<=newYear && month>newMonth){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }else if(year<=newYear && month<=newMonth && day>newDay){
-                JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }else if(house<=0){
+            }else if(year>newYear && month>newMonth){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(year.equals(newYear) && month.equals(newMonth) && day>newDay){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(house<=0){
                 JOptionPane.showMessageDialog(this, "House Number doesn't registered in any community!!");
             }else if(!phoneNumber.matches(regPhoneNumber)){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Phone Number");
@@ -658,11 +667,13 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Phone Number");
             }else if(phone>0){
                 JOptionPane.showMessageDialog(this, "Phone Number Already exists. Please provide different Phone Number");
-            } else{
+            }else if(hospital<=0){
+                         JOptionPane.showMessageDialog(this, ""+city+" doesnot have "+community+"");
+                         } else{
                 if(doctorId.matches("")){
                    
                     selectedPerson.setPersonName(name);
-                    selectedPerson.setPersonId(id);
+                    selectedPerson.setPersonId(id1);
                     selectedPerson.setVisitingDate(new Date(date));
                     selectedPerson.setHouseNumber(houseNumber);
                     selectedPerson.setCommunity(community);
@@ -711,12 +722,12 @@ public class PersonDirectoryPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Hospital doesnot belongs to this city..!!");
                     }else if(hospital<=0){
                 JOptionPane.showMessageDialog(this, ""+city+" doesnot have "+community+"");
-            }else if(!doctorId.matches(d)){
+            }else if(d<=0){
                         JOptionPane.showMessageDialog(this, "Doctor doesnot belong to this Hospital..!!");
                     }else{
                       Patient p= patientDirectory.addPatient();
                         p.setPatientName(name);
-                        p.setPatientId("P00"+String.valueOf(y1));
+                        p.setPatientId(String.valueOf(y1));
                         p.setDoctorId(doctorId);
                          p.setHospitalId(hospitalId);
                         p.setAdmitDate(new Date(date));

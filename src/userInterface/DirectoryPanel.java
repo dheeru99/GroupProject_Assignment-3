@@ -91,7 +91,7 @@ public class DirectoryPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PatientDirectoryPanel d= new PatientDirectoryPanel(rightLayout,patientDirectory,doctorDirectory);
+        PatientDirectoryPanel d= new PatientDirectoryPanel(rightLayout,personDirectory,patientDirectory,doctorDirectory);
         rightLayout.add("PatientDirecoryPanel",d);
         CardLayout layout = (CardLayout)rightLayout.getLayout();
         layout.next(rightLayout);

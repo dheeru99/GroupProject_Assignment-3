@@ -322,8 +322,8 @@ public class EncounterDirectoryPanel extends javax.swing.JPanel {
          for(VitalSign vs:vitalSignDirectory.getVitalSignDirectory()){
          if((selectedDoc.getEncounterId())==(vs.getId())){
          txt1.setText("P00"+vs.getPatientId());
-         txt2.setText(String.valueOf(vs.getBloodPressure()).replaceAll(".0",""));
-         txt3.setText(String.valueOf(vs.getTemperature()).replaceAll(".0",""));
+         txt2.setText(String.valueOf(vs.getBloodPressure()));
+         txt3.setText(String.valueOf(vs.getTemperature()));
          txt4.setText(String.valueOf(vs.getPulse()));
          txt5.setDate(vs.getVistingDate());}
          }
@@ -371,18 +371,18 @@ public class EncounterDirectoryPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Provide Patient Blood Pressure..!!");
         }else if(pulse.equals("")){
             JOptionPane.showMessageDialog(this, "Please Provide Patient Blood Pressure..!!");
-        }else if(bp.matches("[a-zA-Z]+") || !bp.matches("[0-9]+")){
+        }else if(bp.matches("[a-zA-Z]+")){
                     JOptionPane.showMessageDialog(this, "Blood Pressure Should be Numeric");
-        }else if(temp.matches("[a-zA-Z]+") || !temp.matches("[0-9]+")){
+        }else if(temp.matches("[a-zA-Z]+")){
                     JOptionPane.showMessageDialog(this, "Body Temperature Should be Numeric");
         }else if(pulse.matches("[a-zA-Z]+") || !pulse.matches("[0-9]+")){
                     JOptionPane.showMessageDialog(this, "Pulse Should be Numeric");
-        }else if(Integer.parseInt(bp)<0 || Integer.parseInt(bp)>100 ){
-                    JOptionPane.showMessageDialog(this, "Please Provide Patient Valid Blood Pressure..!!");
-        }else if(Integer.parseInt(temp)<0 || Integer.parseInt(temp)>100 ){
-                    JOptionPane.showMessageDialog(this, "Please Provide Patient Valid Body Temperature..!!");
-        }else if(Integer.parseInt(pulse)<0 || Integer.parseInt(pulse)>100 ){
-                    JOptionPane.showMessageDialog(this, "Please Provide Patient Valid Pulse..!!");
+        }else if(Double.parseDouble(bp)<70 || Double.parseDouble(bp)>190 ){
+                    JOptionPane.showMessageDialog(this, "Please Provide Patient Valid Blood Pressure. It should be between (70-190mm/Hg)..!!");
+        }else if(Double.parseDouble(temp)<(-90) || Double.parseDouble(temp)>50 ){
+                    JOptionPane.showMessageDialog(this, "Please Provide Patient Valid Body Temperature. It should be between (-90 - 50 celisius)..!!");
+        }else if(Integer.parseInt(pulse)<25 || Integer.parseInt(pulse)>500 ){
+                    JOptionPane.showMessageDialog(this, "Please Provide Patient Valid Pulse. It should be between (25 - 500BPM)..!!");
         }else{
             
             Date date1=null;
@@ -408,13 +408,15 @@ public class EncounterDirectoryPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
               }else if(year<=newYear && month>newMonth){
                     JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-              }else if(year<=newYear && month<=newMonth && day>newDay){
+              }else if(year>newYear && month>newMonth){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(year.equals(newYear) && month.equals(newMonth) && day>newDay){
                           JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
               }else{
             
         
      for(VitalSign vs:vitalSignDirectory.getVitalSignDirectory()){
-             if((selectedEncounter.getDoctorId()).matches(vs.getDoctorId())){
+             if((selectedEncounter.getEncounterId()).matches(vs.getId())){
         vs.setDoctorId(selectedValue);
         vs.setPatientId(patientId);
         vs.setBloodPressure(Double.parseDouble(bp));
@@ -482,6 +484,7 @@ public class EncounterDirectoryPanel extends javax.swing.JPanel {
         for(Encounter doc: encounterHistory.getEncounterHistory()){
             if(selectedValue.matches(doc.getDoctorId())){
           Object[] r =new Object[10];
+        
           r[0]= doc;
           r[1]="P00"+doc.getPatientId();
           SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
