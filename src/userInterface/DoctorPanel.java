@@ -263,10 +263,11 @@ public class DoctorPanel extends javax.swing.JPanel {
               Integer year = Integer.parseInt(regDate.substring(0,4));
               Integer month = Integer.parseInt(regDate.substring(5,7));
               Integer day = Integer.parseInt(regDate.substring(8,10));
-                
+              
               Integer newYear = Integer.parseInt(newDate1.substring(0,4));
               Integer newMonth = Integer.parseInt(newDate1.substring(5,7));
               Integer newDay = Integer.parseInt(newDate1.substring(8,10));
+              
              Integer exp= Integer.parseInt(experience);
             
               if (!name.matches("^[a-zA-z ]*$")){
@@ -275,7 +276,9 @@ public class DoctorPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
               }else if(year<=newYear && month>newMonth){
                     JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-              }else if(year<=newYear && month<=newMonth && day>newDay){
+              }else if(year>newYear && month>newMonth){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(year.equals(newYear) && month.equals(newMonth) && day>newDay){
                           JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
               }else if(exp<0 || exp>100 ){
                  JOptionPane.showMessageDialog(this, "Please Enter a Valid Doctor Experience");

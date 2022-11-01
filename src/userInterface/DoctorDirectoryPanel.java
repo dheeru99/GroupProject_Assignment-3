@@ -400,7 +400,9 @@ public class DoctorDirectoryPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
               }else if(year<=newYear && month>newMonth){
                     JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-              }else if(year<=newYear && month<=newMonth && day>newDay){
+              }else if(year>newYear && month>newMonth){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(year.equals(newYear) && month.equals(newMonth) && day>newDay){
                           JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
               }else if(exp<0 || exp>100 ){
                  JOptionPane.showMessageDialog(this, "Please Enter a Valid Doctor Experience");

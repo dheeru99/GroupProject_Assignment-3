@@ -12,9 +12,11 @@ import java.util.ArrayList;
  */
 public class PatientDirectory {
     private ArrayList<Patient> patientDirectory;
+    private PersonDirectory personDirectory;
 
     public PatientDirectory() {
         patientDirectory= new ArrayList<Patient>();
+        personDirectory= new PersonDirectory();
     }
 
     public ArrayList<Patient> getPatientDirectory() {
@@ -33,5 +35,14 @@ public class PatientDirectory {
         patientDirectory.remove(patient);
         
     }
+
+    public PersonDirectory getPersonDirectory() {
+        return personDirectory;
+    }
+
+    public void setPersonDirectory(PersonDirectory personDirectory) {
+        this.personDirectory = personDirectory;
+    }
+    
 }
 

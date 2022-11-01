@@ -17,6 +17,7 @@ import attributes.HouseHistory;
 import attributes.Patient;
 import attributes.PatientDirectory;
 import attributes.Person;
+import attributes.PersonDirectory;
 import java.awt.CardLayout;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -41,16 +42,19 @@ public class PatientDirectoryPanel extends javax.swing.JPanel {
      CityHistory cityHistory;
     HouseHistory houseHistory;
     CommunityHistory communityHistory;
-    public PatientDirectoryPanel(JPanel rightLayout, PatientDirectory patientDirectory,DoctorDirectory doctorDirectory) {
+    PersonDirectory personDirectory;
+    public PatientDirectoryPanel(JPanel rightLayout,PersonDirectory personDirectory, PatientDirectory patientDirectory,DoctorDirectory doctorDirectory) {
         this.rightLayout=rightLayout;
         this.doctorDirectory=doctorDirectory;
         this.patientDirectory = patientDirectory;
+        this.personDirectory=personDirectory;
         initComponents();
         this.hospitalDirectory= doctorDirectory.getDoctor().getHospitalDirectory();
          this.hospitalDirectory= doctorDirectory.getDoctor().getHospitalDirectory();
          this.cityHistory=doctorDirectory.getDoctor().getHospitalDirectory().getCity().getCityHistory();
          this.communityHistory=doctorDirectory.getDoctor().getHospitalDirectory().getCity().getCommunity().getCommunityHistory();
          this.houseHistory=doctorDirectory.getDoctor().getHospitalDirectory().getCity().getCommunity().getHouse().getHouseHistory();
+        
         table();
     }
 
@@ -446,7 +450,7 @@ public class PatientDirectoryPanel extends javax.swing.JPanel {
             String phoneNumber= txt6.getText();
             String doctorId= txt7.getText().replace("D00","");
              String hospitalId= txt8.getText().replace("H00", "");
-            String houseNumber= txt9.getText();
+            String houseNumber= txt9.getText().replace("H0", "");
             String city= txt10.getText();
       
                 if(name.equals("")){
@@ -505,15 +509,27 @@ public class PatientDirectoryPanel extends javax.swing.JPanel {
             String phone3=phone4;
               phone3=phone3.replace("-","");
             phone3=phone3.replace("(","");
-            phone2=phone3.replace(")","");
-            phone2=phone3.replace(" ","");
-            phone2=phone3.replace("+91","");
+            phone3=phone3.replace(")","");
+            phone3=phone3.replace(" ","");
+            phone3=phone3.replace("+91","");
             phone3=phone3.replace("+1","");
                   if(phone1.matches(phone2) && !phone1.matches(phone3)){
                       phone++;
                   }
                 }
-           
+            for(Person info1: personDirectory.getPersonDirectory()){
+                String phoneNumber1= info1.getPhoneNumber();
+                String phone3=phoneNumber1;
+                phone3=phone3.replace("-","");
+                phone3=phone3.replace("(","");
+                phone3=phone3.replace(")","");
+                phone3=phone3.replace(" ","");
+                phone3=phone3.replace("+91","");
+                phone3=phone3.replace("+1","");
+                if(phone1.matches(phone3)){
+                    phone++;
+                }
+            }
             int doctor=0;
             for(Doctor doc: doctorDirectory.getDoctorDirectory() ){
                 String doc1=doc.getDoctorId();
@@ -561,11 +577,13 @@ public class PatientDirectoryPanel extends javax.swing.JPanel {
                     house++;
                 }
             }
-            String d= "";
-            for(Hospital doc: hospitalDirectory.getHospitalDirectory() ){
-                String doc1=doc.getHospitalId();
+            int d= 0;
+            for(Doctor doc: doctorDirectory.getDoctorDirectory() ){
+                if(doctorId.equalsIgnoreCase(doc.getDoctorId())){
+                String doc1=doc.getHosiptalId();
                 if(hospitalId.matches(doc1)){
-                    d= doc.getDoctorId();
+                    d++;
+                }
                 }
             }
             char ph = phoneNumber.charAt(0);
@@ -577,9 +595,11 @@ public class PatientDirectoryPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
             }else if(year<=newYear && month>newMonth){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }else if(year<=newYear && month<=newMonth && day>newDay){
-                JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }if(house<=0){
+            }else if(year>newYear && month>newMonth){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(year.equals(newYear) && month.equals(newMonth) && day>newDay){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(house<=0){
                 JOptionPane.showMessageDialog(this, "House Number doesn't registered in any community!!");
             }else if(!phoneNumber.matches(regPhoneNumber)){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Phone Number");
@@ -601,7 +621,7 @@ public class PatientDirectoryPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Hospital doesnot belongs to this community..!!");
             }else if(city2<=0){
                 JOptionPane.showMessageDialog(this, "Hospital doesnot belongs to this city..!!");
-            }else if(!doctorId.matches(d)){
+            }else if(d<=0){
                 JOptionPane.showMessageDialog(this, "Doctor doesnot belong to this Hospital..!!");
             } else{
             
@@ -670,7 +690,7 @@ public class PatientDirectoryPanel extends javax.swing.JPanel {
          txt5.setText("P00"+selectedDoc.getPatientId());
          txt3.setDate(selectedDoc.getAdmitDate());
          txt4.setText(selectedDoc.getCommunity());
-         txt5.setText(selectedDoc.getStreet());
+         
          txt6.setText(selectedDoc.getPhoneNumber());
          txt7.setText("D00"+selectedDoc.getDoctorId());
          txt8.setText("H00"+selectedDoc.getHospitalId());

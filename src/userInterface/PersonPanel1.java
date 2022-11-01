@@ -517,11 +517,13 @@ public class PersonPanel1 extends javax.swing.JPanel {
                     house++;
                 }
             }
-            String d= "";
+            int d= 0;
             for(Doctor doc: doctorDirectory.getDoctorDirectory() ){
+                if(doctorId.equalsIgnoreCase(doc.getDoctorId())){
                 String doc1=doc.getHosiptalId();
                 if(hospitalId.matches(doc1)){
-                    d= doc.getDoctorId();
+                    d++;
+                }
                 }
             }
             char ph = phoneNumber.charAt(0);
@@ -533,9 +535,11 @@ public class PersonPanel1 extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
             }else if(year<=newYear && month>newMonth){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }else if(year<=newYear && month<=newMonth && day>newDay){
-                JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }else if(house<=0){
+            }else if(year>newYear && month>newMonth){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(year.equals(newYear) && month.equals(newMonth) && day>newDay){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(house<=0){
                 JOptionPane.showMessageDialog(this, "House Number doesn't registered in any community!!");
             }else if(!phoneNumber.matches(regPhoneNumber)){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Phone Number");
@@ -579,7 +583,7 @@ public class PersonPanel1 extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Hospital doesnot belongs to this community..!!");
                     }else if(city2<=0){
                         JOptionPane.showMessageDialog(this, "Hospital doesnot belongs to this city..!!");
-                    }else if(!doctorId.matches(d)){
+                    }else if(d<=0){
                         JOptionPane.showMessageDialog(this, "Doctor doesnot belong to this Hospital..!!");
                     }else{
                         Patient p= patientDirectory.addPatient();

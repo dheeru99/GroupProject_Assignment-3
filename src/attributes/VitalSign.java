@@ -11,7 +11,7 @@ import java.util.Date;
  * @author dheer
  */
 public class VitalSign {
-    private int id;
+    private String id;
     private String doctorId;
     private String patientId;
     private Double bloodPressure;
@@ -25,14 +25,15 @@ public class VitalSign {
         this.encounter= new Encounter();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
+    
     
     
     

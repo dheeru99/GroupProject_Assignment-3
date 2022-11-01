@@ -387,7 +387,6 @@ public class PersonPanel extends javax.swing.JPanel {
     private void jButton7jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7jButton1ActionPerformed
         String name=  txt1.getText();
         String id1= txt5.getText().replace("PE00","");
-      
         String id=txt5.getText().replace("P00","");
         String date =String.valueOf(txt3.getDate());
         String houseNumber= txt9.getText().replace("H0", "");
@@ -511,17 +510,18 @@ public class PersonPanel extends javax.swing.JPanel {
             }
             int house=0;
             for(House ho: houseHistory.getHouseHistory() ){
-
                 String house1= ho.getHouseNumber();
                 if(houseNumber.equalsIgnoreCase(house1)){
                     house++;
                 }
             }
-            String d= "";
+            int d= 0;
             for(Doctor doc: doctorDirectory.getDoctorDirectory() ){
+                if(doctorId.equalsIgnoreCase(doc.getDoctorId())){
                 String doc1=doc.getHosiptalId();
                 if(hospitalId.matches(doc1)){
-                    d= doc.getDoctorId();
+                    d++;
+                }
                 }
             }
             char ph = phoneNumber.charAt(0);
@@ -533,9 +533,11 @@ public class PersonPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
             }else if(year<=newYear && month>newMonth){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }else if(year<=newYear && month<=newMonth && day>newDay){
-                JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
-            }else if(house<=0){
+            }else if(year>newYear && month>newMonth){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(year.equals(newYear) && month.equals(newMonth) && day>newDay){
+                          JOptionPane.showMessageDialog(this, "Please Enter a Valid Date");
+              }else if(house<=0){
                 JOptionPane.showMessageDialog(this, "House Number doesn't registered in any community!!");
             }else if(!phoneNumber.matches(regPhoneNumber)){
                 JOptionPane.showMessageDialog(this, "Please Enter a Valid Phone Number");
@@ -579,7 +581,7 @@ public class PersonPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Hospital doesnot belongs to this community..!!");
                     }else if(city2<=0){
                         JOptionPane.showMessageDialog(this, "Hospital doesnot belongs to this city..!!");
-                    }else if(!doctorId.matches(d)){
+                    }else if(d<=0){
                         JOptionPane.showMessageDialog(this, "Doctor doesnot belong to this Hospital..!!");
                     }else{
                         Patient p= patientDirectory.addPatient();
