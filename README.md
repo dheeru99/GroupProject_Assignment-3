@@ -42,6 +42,6 @@ Encounter;
 •	If multiple vital signs are collected, all the vital signs of the patient will be saved as encounter history.
 •	All these vital signs can be added to only be entering the doctor’s portal.
 
-
+ 
 
 
