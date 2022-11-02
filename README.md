@@ -80,9 +80,3 @@ Encounter:
 •	All these vital signs can be added to only be entering the doctor’s portal.
 
 
-
-
-
-
-
-
